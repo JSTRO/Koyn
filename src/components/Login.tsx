@@ -1,12 +1,33 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CSSProperties } from 'react';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:3333/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+      const data = await response.json();
+      if (data.loggedIn) navigate('/');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
 
@@ -59,12 +80,12 @@ const Login: React.FC = () => {
     <div style={containerStyle}>
       <h1 style={titleStyle}>Koyn</h1>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="username">Username:</label>
         <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="username"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           style={inputStyle}
         />
         <label htmlFor="password">Password:</label>
