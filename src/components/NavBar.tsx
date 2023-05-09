@@ -25,11 +25,11 @@ const NavBar: React.FC = () => {
         Home
       </a>
       <div style={navLinksStyle}>
-        <a href="/sign-up" style={linkStyle}>
+        <a href="/signup" style={linkStyle}>
           Sign Up
         </a>
-        <a href="/sign-in" style={linkStyle}>
-          Sign In
+        <a href="/login" style={linkStyle}>
+          Login
         </a>
       </div>
     </nav>
