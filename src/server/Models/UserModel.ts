@@ -37,13 +37,13 @@ async function createUser(user: User): Promise<QueryResult<User>> {
   return result;
 }
 
-async function getUserById(id: number): Promise<QueryResult<User>> {
+async function getUser(username: string): Promise<QueryResult<User>> {
   const query = {
-    text: 'SELECT * FROM "Users" WHERE id = $1',
-    values: [id],
+    text: 'SELECT * FROM "Users" WHERE username = $1',
+    values: [username],
   };
   const result = await pool.query<User>(query);
   return result;
 }
 
-export { createUserTable, createUser, getUserById };
+export { createUserTable, createUser, getUser };
