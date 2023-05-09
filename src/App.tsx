@@ -1,6 +1,7 @@
 import NavBar from './components/NavBar';
 import Logo from './components/HomeLogo';
 import AddItem from './components/addItem';
+import Dashboard from './components/Dashboard';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <NavBar />
       <Logo />
       <AddItem />
+      <Dashboard />
     </div>
   );
 }
