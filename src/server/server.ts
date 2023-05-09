@@ -3,8 +3,16 @@ import express from 'express';
 // const NextFunction = require('express');
 const userController = require('./controllers/userController');
 const expenseController = require('./controllers/expenseController');
+const cors = require('cors');
 
 const app = express();
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
 
 // Middleware to parse incoming requests with JSON payloads
 app.use(express.json());

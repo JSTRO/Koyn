@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 interface AddItemProps {
   onAddExpense: (expense: {
@@ -15,9 +16,23 @@ const AddItem: React.FC<AddItemProps> = ({ onAddExpense }) => {
   const [date, setDate] = useState('');
   const [category, setCategory] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     console.log({ name, amount, date, category });
+    
+    // add item to DB
+    try {
+      console.log('axios properties -->', name, amount, date, category)
+      await axios.post('http://localhost:3333/addExpense', {
+        user_id: 1,
+        expense_name: name,
+        expense_category: category,
+        amount: amount,
+        date_of_expense: date
+      })
+    } catch(error) {
+      console.log(error)
+    }
 
     onAddExpense({ name, amount: Number(amount), date, category });
     setName('');
