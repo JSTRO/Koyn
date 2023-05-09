@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
-const AddItem: React.FC = () => {
+interface AddItemProps {
+  onAddExpense: (expense: {
+    name: string;
+    amount: number;
+    date: string;
+    category: string;
+  }) => void;
+}
+
+const AddItem: React.FC<AddItemProps> = ({ onAddExpense }) => {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
@@ -10,7 +19,11 @@ const AddItem: React.FC = () => {
     event.preventDefault();
     console.log({ name, amount, date, category });
 
-    // here add postgres functionality
+    onAddExpense({ name, amount: Number(amount), date, category });
+    setName('');
+    setAmount('');
+    setDate('');
+    setCategory('');
   };
 
   return (
@@ -51,13 +64,13 @@ const AddItem: React.FC = () => {
         style={{ marginRight: '10px' }}
       >
         <option value="">Select category</option>
-        <option value="category1">Food</option>
-        <option value="category2">Gas</option>
-        <option value="category3">Energy</option>
-        <option value="category4">Rent/Mortgage</option>
-        <option value="category5">Clothes</option>
-        <option value="category6">Entertainment</option>
-        <option value="category7">Misc</option>
+        <option value="Food">Food</option>
+        <option value="Gas">Gas</option>
+        <option value="Energy">Energy</option>
+        <option value="Rent/Mortgage">Rent/Mortgage</option>
+        <option value="Clothes">Clothes</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Misc">Misc</option>
       </select>
       <button type="submit">Submit</button>
     </form>
