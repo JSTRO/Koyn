@@ -1,4 +1,6 @@
 import { useState, ChangeEvent, FormEvent, CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 interface FormData {
   username: string;
@@ -13,14 +15,34 @@ const SignUp: React.FC = () => {
     password: '',
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-  };
+
+  try {
+    const response = await fetch('http://localhost:3333/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+    const data = await response.json();
+    if (data.loggedIn) navigate('/');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
   const containerStyle: CSSProperties = {
     textAlign: 'center',

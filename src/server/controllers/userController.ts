@@ -24,6 +24,7 @@ const userController = {
       const newUser = { username, email, password_hash: hashedPassword };
       const result = await createUser(newUser); // Call the createUser function from the UserModel module
       res.locals.user = result.rows[0];
+      res.locals.loggedIn = true;
       return next();
     } catch (err) {
       return next({
@@ -34,25 +35,31 @@ const userController = {
     }
   },
 
-  async verifyUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async verifyUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
     try {
       const { username, password } = req.body;
       const result = await getUser(username);
       const user = result.rows[0];
       if (!user) {
         res.locals.status = false;
+        res.locals.loggedIn = false;
         throw new Error('User not found');
       } else {
         const result = await compare(password, user.password_hash);
         if (result === true) {
           res.locals.user = user;
+          res.locals.loggedIn = true;
         }
         return next();
       }
     } catch (error) {
       return next(error);
     }
-  }
-}
+  },
+};
 
 module.exports = userController;
