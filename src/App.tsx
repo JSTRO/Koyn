@@ -1,9 +1,11 @@
+import NavBar from './components/NavBar';
+import Logo from './components/HomeLogo';
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Koyn</h1>
-      </header>
+      <NavBar />
+      <Logo />
     </div>
   );
 }
