@@ -1,6 +1,6 @@
 import NavBar from './components/NavBar';
 import Logo from './components/HomeLogo';
-import AddItem from './components/addItem';
+// import AddItem from './components/addItem';
 import Dashboard from './components/Dashboard';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <NavBar />
       <Logo />
-      <AddItem />
+      {/* <AddItem /> */}
       <Dashboard />
     </div>
   );

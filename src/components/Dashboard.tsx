@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AddItem from './addItem';
 
 interface Expense {
   name: string;
@@ -9,15 +10,16 @@ interface Expense {
 
 const Dashboard: React.FC = () => {
   // random expenses can configure to whatever until we have actual data
-  const expenses: Expense[] = [
-    { name: 'Groceries', amount: 120, date: '2023-05-01', category: 'Food' },
-    { name: 'Gas', amount: 50, date: '2023-05-02', category: 'Gas' },
-  ];
-
+  const [expenses, setExpenses] = useState<Expense[]>([]);
   const [chartLayout, setChartLayout] = useState('');
 
+  const addNewItem = (expense: Expense) => {
+    setExpenses((prevEx) => [...prevEx, expense]);
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <AddItem onAddExpense={addNewItem} />
       {/* styling for sure needs to be changed */}
       <div
         style={{

@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
-const AddItem: React.FC = () => {
+interface AddItemProps {
+  onAddExpense: (expense: {
+    name: string;
+    amount: number;
+    date: string;
+    category: string;
+  }) => void;
+}
+
+const AddItem: React.FC<AddItemProps> = ({ onAddExpense }) => {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
@@ -10,7 +19,11 @@ const AddItem: React.FC = () => {
     event.preventDefault();
     console.log({ name, amount, date, category });
 
-    // here add postgres functionality
+    onAddExpense({ name, amount: Number(amount), date, category });
+    setName('');
+    setAmount('');
+    setDate('');
+    setCategory('');
   };
 
   return (
