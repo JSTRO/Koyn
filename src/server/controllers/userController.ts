@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { hash } from 'bcrypt';
-import { createUserTable, createUser, getUserById } from '../Models/UserModel';
+import { hash, compare } from 'bcrypt';
+import { createUserTable, createUser, getUser } from '../Models/UserModel';
 const db = require('../models/UserModel');
 
 const SALT_ROUNDS = 10;
@@ -12,7 +12,6 @@ interface UserFromRequest {
 }
 
 const userController = {
-
   // Middleware function to create a new user
   async createUser(
     req: Request,
@@ -35,25 +34,25 @@ const userController = {
     }
   },
 
-  // userController.logIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  //   try {
-  //     const { username, password } = req.body;
-  //     // const user = await User.findOne({ username: username });
-  //     if (!user) {
-  //       res.locals.status = false;
-  //       throw new Error('User not found');
-  //     } else {
-  //       user.comparePassword(password, (err: Error, isMatch: boolean) => {
-  //         if (err) throw err;
-  //         res.locals.status = isMatch;
-  //         res.locals.user = user;
-  //         return next();
-  //       });
-  //     }
-  //   } catch (error) {
-  //     return next(error);
-  //   }
-  // };
-};
+  async verifyUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { username, password } = req.body;
+      const result = await getUser(username);
+      const user = result.rows[0];
+      if (!user) {
+        res.locals.status = false;
+        throw new Error('User not found');
+      } else {
+        const result = await compare(password, user.password_hash);
+        if (result === true) {
+          res.locals.user = user;
+        }
+        return next();
+      }
+    } catch (error) {
+      return next(error);
+    }
+  }
+}
 
 module.exports = userController;

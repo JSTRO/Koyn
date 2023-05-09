@@ -18,10 +18,13 @@ app.post(
   }
 );
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-  console.log('hello world');
-  return res.json('hello world');
-});
+app.post(
+  '/login',
+  userController.verifyUser,
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.status(200).json(res.locals.user);
+  }
+);
 
 app.post(
   '/addExpense',
@@ -30,14 +33,6 @@ app.post(
     return res.status(200).json(res.locals.newExpense);
   }
 );
-
-// api.post('/signup', userController.createUser, cookieController.setSSIDCookie, (req, res) => {
-//   return res.status(200).json(res.locals.user);
-// });
-
-// api.post('/verify', userController.logIn, userController.getUser, cookieController.setSSIDCookie, (req, res) => {
-//   return res.status(200).json(res.locals.user);
-// });
 
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
