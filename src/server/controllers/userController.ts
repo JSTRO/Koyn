@@ -12,36 +12,6 @@ interface UserFromRequest {
 }
 
 const userController = {
-  // userController.createUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  //   db.query(createUser)
-  //     .then((data) => {
-  //       res.locals.users = data.rows;
-  //       return next();
-  //     })
-  //     .catch((err) => {
-  //       return next({
-  //         log: 'an error occurred in userController.createUser',
-  //         status: 400,
-  //         message: { err: err },
-  //       });
-  //     });
-  // };
-
-  // async createUser (req: Request, res: Response, next: NextFunction): Promise<void> {
-  //   const { username, email, password } = req.body;
-  //   const values = [username, email, password];
-  //   try {
-  //     const result = await createUser());
-  //     res.locals.users = result.rows;
-  //     return next();
-  //   } catch (err) {
-  //     return next({
-  //       log: 'an error occurred in userController.createUser',
-  //       status: 400,
-  //       message: { err: err },
-  //     });
-  //   }
-  // },
 
   // Middleware function to create a new user
   async createUser(
