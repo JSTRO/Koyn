@@ -60,7 +60,7 @@ function App({ currentUser }: Props) {
       <NavBar />
       <Logo />
       {/* prop down the function name it whatever */}
-      <AddItem onAddExpense={addNewItem} />
+      <AddItem onAddExpense={addNewItem} currentUser={currentUser} />
       <Dashboard expenses={expenses} />
     </div>
   );

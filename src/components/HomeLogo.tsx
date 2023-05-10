@@ -1,14 +1,21 @@
 import { CSSProperties } from 'react';
+import logo from '../assets/logo.png';
 
 const Logo = () => {
   const titleStyle: CSSProperties = {
-    color: 'black',
-    fontSize: '3rem',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginBottom: '20px',
     textAlign: 'center',
   };
 
-  return <h1 style={titleStyle}>Koyn</h1>;
+  return (
+    <div style={titleStyle}>
+      <img className="logo" src={logo} alt=''/>
+      <h1>Koyn</h1>
+    </div>
+  )
 };
 
 export default Logo;
