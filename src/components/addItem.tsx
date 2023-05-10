@@ -19,19 +19,19 @@ const AddItem: React.FC<AddItemProps> = ({ onAddExpense }) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     console.log({ name, amount, date, category });
-    
+
     // add item to DB
     try {
-      console.log('axios properties -->', name, amount, date, category)
+      console.log('axios properties -->', name, amount, date, category);
       await axios.post('http://localhost:3333/addExpense', {
         user_id: 1,
         expense_name: name,
         expense_category: category,
         amount: amount,
-        date_of_expense: date
-      })
-    } catch(error) {
-      console.log(error)
+        date_of_expense: date,
+      });
+    } catch (error) {
+      console.log(error);
     }
 
     onAddExpense({ name, amount: Number(amount), date, category });
@@ -80,11 +80,11 @@ const AddItem: React.FC<AddItemProps> = ({ onAddExpense }) => {
       >
         <option value="">Select category</option>
         <option value="Food">Food</option>
-        <option value="Gas">Gas</option>
-        <option value="Energy">Energy</option>
         <option value="Rent/Mortgage">Rent/Mortgage</option>
-        <option value="Clothes">Clothes</option>
+        <option value="Utilities">Utilities</option>
         <option value="Entertainment">Entertainment</option>
+        <option value="Clothes">Clothes</option>
+        <option value="Gas">Gas</option>
         <option value="Misc">Misc</option>
       </select>
       <button type="submit">Submit</button>

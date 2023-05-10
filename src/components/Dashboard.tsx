@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import PieChartComponent from './PieChartComp';
 
 interface Expense {
   name: string;
@@ -13,6 +14,61 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
   const [chartLayout, setChartLayout] = useState('');
+
+  // const defaultChartData = {
+  //   labels: ['Food', 'Transport', 'Rent', 'Utilities', 'Entertainment'],
+  //   datasets: [
+  //     {
+  //       data: [100, 150, 300, 50, 120],
+  //       backgroundColor: [
+  //         '#FF6384',
+  //         '#36A2EB',
+  //         '#FFCE56',
+  //         '#4BC0C0',
+  //         '#9966FF',
+  //         '#FF9F40',
+  //       ],
+  //     },
+  //   ],
+  // };
+
+  const chartData = useMemo(() => {
+    const categories = [
+      'Food',
+      'Rent/Mortgage',
+      'Utilities',
+      'Entertainment',
+      'Clothes',
+      'Gas',
+      'Misc',
+    ];
+    const categoryTotals: number[] = Array(categories.length).fill(0);
+
+    expenses.forEach((expense) => {
+      const categoryIndex = categories.indexOf(expense.category);
+      if (categoryIndex !== -1) {
+        categoryTotals[categoryIndex] += expense.amount;
+      }
+    });
+
+    return {
+      labels: categories,
+      datasets: [
+        {
+          data: categoryTotals,
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF',
+            '#FF9F40',
+            '#adc1e0',
+          ],
+        },
+      ],
+    };
+  }, [expenses]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -61,13 +117,16 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
           <option value="layout3">Layout 3</option>
         </select>
         <div
-          style={{
-            width: '300px',
-            height: '300px',
-            backgroundColor: '#eee',
-            marginTop: '10px',
-          }}
-        ></div>
+        // style={{
+        //   width: '00px',
+        //   height: '300px',
+        //   backgroundColor: '#eee',
+        //   marginTop: '10px',
+        // }}
+        // <PieChartComponent data={defaultChartData} />
+        >
+          <PieChartComponent data={chartData} />
+        </div>
       </div>
     </div>
   );
