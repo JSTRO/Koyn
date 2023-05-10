@@ -71,7 +71,7 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
   }, [expenses]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div className="dashboard" style={{ display: 'flex', flexDirection: 'row' }}>
       {/* styling for sure needs to be changed */}
       <div
         style={{
@@ -81,6 +81,7 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
           borderRadius: '5px',
           backgroundColor: '#f9f9f9',
         }}
+        className="expense-list"
       >
         <h2 style={{ marginTop: 0 }}>Expenses</h2>
         <table>
@@ -104,7 +105,7 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
           </tbody>
         </table>
       </div>
-      <div>
+      <div className="chart-wrapper">
         <h2>Charts</h2>
         <select
           value={chartLayout}

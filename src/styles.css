@@ -1,0 +1,23 @@
+html {
+  margin: 0px;
+}
+
+body {
+  font-family: arial;
+}
+
+.dashboard {
+  justify-content: center;
+  margin: 40px;
+}
+
+.expense-list {
+  width: 400px;
+}
+
+.chart-wrapper {
+  width: 600px;
+  /* display: flex;
+  flex-direction: column; */
+  text-align: center;
+}

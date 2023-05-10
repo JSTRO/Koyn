@@ -7,6 +7,7 @@ const NavBar: React.FC = () => {
     alignItems: 'center',
     backgroundColor: '#222',
     padding: '0 20px',
+    height: '50px'
   };
 
   const linkStyle: CSSProperties = {
