@@ -39,13 +39,15 @@ async function createExpense(expense: Expense): Promise<QueryResult<Expense>> {
   return result;
 }
 
-async function getExpenseById(id: number): Promise<QueryResult<Expense>> {
+async function getExpensesByUserId(
+  user_id: string
+): Promise<QueryResult<Expense>> {
   const query = {
-    text: 'SELECT * FROM "Expenses" WHERE id = $1',
-    values: [id],
+    text: 'SELECT * FROM "Expenses" WHERE user_id = $1',
+    values: [user_id],
   };
-  const result = await pool.query<Expense>(query);
+  const result = await pool.query(query);
   return result;
 }
 
-export { createExpenseTable, createExpense, getExpenseById };
+export { createExpenseTable, createExpense, getExpensesByUserId };

@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { createExpense, getExpenseById } from '../Models/ExpenseModel';
-const db = require('../models/ExpenseModel');
+import { createExpense, getExpensesByUserId } from '../Models/ExpenseModel';
 
 interface ExpenseFromRequest {
-  user_id: string;
+  user_id: number;
   expense_name: string;
   expense_category: string;
   amount: number;
@@ -34,8 +33,25 @@ const expenseController = {
         date_of_expense,
       };
       const result = await createExpense(newExpense); // Call the createUser function from the UserModel module
-      console.log('result', result);
       res.locals.newExpense = result.rows[0];
+      return next();
+    } catch (err) {
+      return next({
+        log: 'an error occurred in expenseController.createExpense',
+        status: 400,
+        message: { err: err },
+      });
+    }
+  },
+  async getExpensesByUserId(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { user_id } = req.params;
+      const result = await getExpensesByUserId(user_id);
+      res.locals.expenses = result.rows;
       return next();
     } catch (err) {
       return next({

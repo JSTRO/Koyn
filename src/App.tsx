@@ -15,6 +15,8 @@ interface Expense {
 function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
 
+
+
   const addNewItem = async (expense: Expense) => {
     // this is in app for prop drilling couldnt get it to work
     // with additem in dashboard
