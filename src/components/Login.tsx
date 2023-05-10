@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { CSSProperties } from 'react';
 
 interface Props {
@@ -48,7 +48,7 @@ const Login = ({setCurrentUser}: Props) => {
   };
 
   const titleStyle: CSSProperties = {
-    color: 'white',
+    color: 'gold',
     fontSize: '3rem',
     marginBottom: '20px',
   };
@@ -105,6 +105,7 @@ const Login = ({setCurrentUser}: Props) => {
         <button type="submit" style={buttonStyle}>
           Submit
         </button>
+        <p>Don't have an account? Sign up <Link style={{color: 'gold'}} to="/signup" >here</Link>!</p>
       </form>
     </div>
   );
