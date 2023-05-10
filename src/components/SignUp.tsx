@@ -8,7 +8,11 @@ interface FormData {
   password: string;
 }
 
-const SignUp: React.FC = () => {
+interface Props {
+  setCurrentUser: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SignUp = ({setCurrentUser}: Props) => {
   const [formData, setFormData] = useState<FormData>({
     username: '',
     email: '',
@@ -35,7 +39,10 @@ const SignUp: React.FC = () => {
       }),
     });
     const data = await response.json();
-    if (data.loggedIn) navigate('/');
+    if (data.loggedIn) {
+      setCurrentUser(data.user.id)
+      navigate('/dashboard')
+    };
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

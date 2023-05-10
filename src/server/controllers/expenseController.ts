@@ -55,7 +55,7 @@ const expenseController = {
       return next();
     } catch (err) {
       return next({
-        log: 'an error occurred in expenseController.createExpense',
+        log: 'an error occurred in expenseController.getExpensesByUserId',
         status: 400,
         message: { err: err },
       });

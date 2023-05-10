@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CSSProperties } from 'react';
 
-const Login: React.FC = () => {
+interface Props {
+  setCurrentUser: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Login = ({setCurrentUser}: Props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,7 +25,10 @@ const Login: React.FC = () => {
         }),
       });
       const data = await response.json();
-      if (data.loggedIn) navigate('/');
+      if (data.loggedIn) {
+        setCurrentUser(data.user.id)
+        navigate('/dashboard')
+      };
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -29,7 +36,6 @@ const Login: React.FC = () => {
       console.error('Error:', error);
     }
   };
-
 
   // inline css. could not get css importing to work ://
   const containerStyle: CSSProperties = {
