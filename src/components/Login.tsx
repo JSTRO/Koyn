@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { CSSProperties } from 'react';
+import logo from '../assets/logo.png';
 
 interface Props {
   setCurrentUser: React.Dispatch<React.SetStateAction<string>>;
@@ -84,6 +85,7 @@ const Login = ({setCurrentUser}: Props) => {
 
   return (
     <div style={containerStyle}>
+      <img className="logo" src={logo} alt=''/>
       <h1 style={titleStyle}>Koyn</h1>
       <form onSubmit={handleSubmit} style={formStyle}>
         <label htmlFor="username">Username:</label>

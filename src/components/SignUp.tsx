@@ -52,32 +52,35 @@ const SignUp = ({setCurrentUser}: Props) => {
 };
 
   const containerStyle: CSSProperties = {
-    textAlign: 'center',
-    maxWidth: '500px',
-    margin: '30px auto',
-    padding: '20px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    backgroundColor: '#f7f7f7',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    backgroundColor: '#1c1c1c',
+    color: 'gold'
   };
+
+  
 
   const formInputStyle: CSSProperties = {
     display: 'block',
-    width: '100%',
-    margin: '10px 0',
+    width: '300px',
+    marginBottom: '10px',
     padding: '10px',
-    border: '1px solid #ccc',
+    backgroundColor: '#3c3c3c',
+    borderColor: 'transparent',
+    color: 'white',
     borderRadius: '5px',
   };
 
   const submitButtonStyle: CSSProperties = {
-    backgroundColor: '#2196F3',
-    color: 'white',
-    padding: '10px 20px',
-    margin: '10px 0',
-    border: 'none',
+    backgroundColor: '#4c4c4c',
+    color: 'gold',
+    padding: '5px 10px',
     borderRadius: '5px',
     cursor: 'pointer',
+    marginTop: '10px',
   };
 
   return (
@@ -111,9 +114,10 @@ const SignUp = ({setCurrentUser}: Props) => {
           onChange={handleChange}
           required
         />
-        <button style={submitButtonStyle} type="submit">
+        <div className="submit-button"> <button style={submitButtonStyle} type="submit">
           Sign Up
-        </button>
+          </button>
+        </div>
       </form>
     </div>
   );

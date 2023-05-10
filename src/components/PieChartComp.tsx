@@ -15,7 +15,7 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({ data }) => {
   useEffect(() => {}, [data]);
 
   return (
-    <div style={{ width: '300px', height: '300px' }}>
+    <div>
       <Pie data={data} />
     </div>
   );

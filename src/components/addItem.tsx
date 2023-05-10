@@ -8,9 +8,10 @@ interface AddItemProps {
     date: string;
     category: string;
   }) => void;
+  currentUser: string;
 }
 
-const AddItem: React.FC<AddItemProps> = ({ onAddExpense }) => {
+const AddItem: React.FC<AddItemProps> = ({ onAddExpense, currentUser }) => {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
@@ -24,7 +25,7 @@ const AddItem: React.FC<AddItemProps> = ({ onAddExpense }) => {
     try {
       console.log('axios properties -->', name, amount, date, category);
       await axios.post('http://localhost:3333/addExpense', {
-        user_id: 1,
+        user_id: currentUser,
         expense_name: name,
         expense_category: category,
         amount: amount,
