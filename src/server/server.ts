@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import express from 'express';
 const path = require('path');
-// const NextFunction = require('express');
 const userController = require('./controllers/userController');
 const expenseController = require('./controllers/expenseController');
 const cors = require('cors');
@@ -18,7 +17,7 @@ app.use(
 // Middleware to parse incoming requests with JSON payloads
 app.use(express.json());
 
-// Define your routes here //
+// All routes here //
 app.get('/', (req: Request, res: Response) => {
   res
     .status(200)
@@ -29,8 +28,6 @@ app.post(
   '/signup',
   userController.createUser,
   (req: Request, res: Response, next: NextFunction) => {
-    // return res.status(201).redirect('/');
-    // return res.redirect('/');
     return res.status(201).json({ loggedIn: res.locals.loggedIn });
   }
 );
@@ -48,6 +45,14 @@ app.post(
   expenseController.createExpense,
   (req: Request, res: Response, next: NextFunction) => {
     return res.status(200).json(res.locals.newExpense);
+  }
+);
+
+app.get(
+  '/getAllExpenses/:user_id',
+  expenseController.getExpensesByUserId,
+  (req: Request, res: Response, next: NextFunction) => {
+    return res.status(200).json(res.locals.expenses);
   }
 );
 
