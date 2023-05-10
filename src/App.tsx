@@ -3,7 +3,6 @@ import NavBar from './components/NavBar';
 import Logo from './components/HomeLogo';
 import AddItem from './components/addItem';
 import Dashboard from './components/Dashboard';
-import axios from 'axios';
 
 interface Expense {
   name: string;
@@ -14,11 +13,10 @@ interface Expense {
 
 function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
-
   const addNewItem = async (expense: Expense) => {
     // this is in app for prop drilling couldnt get it to work
     // with additem in dashboard
-    
+
     setExpenses((prevEx) => [...prevEx, expense]);
   };
 
