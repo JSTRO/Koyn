@@ -14,6 +14,43 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
   const [chartLayout, setChartLayout] = useState('');
+  // state for sorted expesnses
+  const [sortDirection, setSortDirection] = useState('none');
+
+  const sortedExpenses = useMemo(() => {
+    if (sortDirection === 'none') {
+      return expenses;
+    }
+
+    return [...expenses].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      if (sortDirection === 'up') {
+        return dateA.getTime() - dateB.getTime();
+      } else {
+        return dateB.getTime() - dateA.getTime();
+      }
+    });
+  }, [expenses, sortDirection]);
+
+  // const defaultChartData = {
+  //   labels: ['Food', 'Transport', 'Rent', 'Utilities', 'Entertainment'],
+  //   datasets: [
+  //     {
+  //       data: [100, 150, 300, 50, 120],
+  //       backgroundColor: [
+  //         '#FF6384',
+  //         '#36A2EB',
+  //         '#FFCE56',
+  //         '#4BC0C0',
+  //         '#9966FF',
+  //         '#FF9F40',
+  //       ],
+  //     },
+  //   ],
+  // };
+
   const chartData = useMemo(() => {
     const categories = [
       'Food',
@@ -53,7 +90,10 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
   }, [expenses]);
 
   return (
-    <div className="dashboard" style={{ display: 'flex', flexDirection: 'row' }}>
+    <div
+      className="dashboard"
+      style={{ display: 'flex', flexDirection: 'row' }}
+    >
       <div
         style={{
           marginRight: '20px',
@@ -64,19 +104,82 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
         }}
         className="expense-list"
       >
-        <div className="section-title"><h2 style={{ marginTop: 0 }}>Expenses</h2></div>
+        <div className="section-title">
+          <h2 style={{ marginTop: 0 }}>Expenses</h2>
+        </div>
+        <button
+          onClick={() => setSortDirection('none')}
+          style={{ marginBottom: '10px' }}
+        >
+          Revert
+        </button>
         <table>
           <thead>
             <tr className="expense-headers">
-              <th>Name</th>
-              <th>Amount</th>
-              <th>Date</th>
-              <th>Category</th>
+              <th>
+                <button
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Name
+                </button>
+              </th>
+
+              <th>
+                <button
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Amount
+                </button>
+              </th>
+              <th>
+                <button
+                  onClick={() =>
+                    setSortDirection((prev) =>
+                      // these are the sorting directions
+                      prev === 'up' ? 'down' : 'up'
+                    )
+                  }
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Date
+                </button>
+              </th>
+
+              <th>
+                <button
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Category
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {expenses.map((expense, index) => (
-              <tr key={index} style={index % 2 === 0 ? {backgroundColor: "gold"}: {backgroundColor: "white"}}>
+            {sortedExpenses.map((expense, index) => (
+              <tr
+                key={index}
+                style={
+                  index % 2 === 0
+                    ? { backgroundColor: 'gold' }
+                    : { backgroundColor: 'white' }
+                }
+              >
                 <td>{expense.name}</td>
                 <td>{expense.amount}</td>
                 <td>{expense.date}</td>
@@ -87,7 +190,9 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
         </table>
       </div>
       <div className="chart-wrapper">
-        <div className="section-title"><h2>Breakdown</h2></div>
+        <div className="section-title">
+          <h2>Breakdown</h2>
+        </div>
         {/* <select
           value={chartLayout}
           onChange={(e) => setChartLayout(e.target.value)}
@@ -98,14 +203,14 @@ const Dashboard: React.FC<DashboardProps> = ({ expenses }) => {
         //   <option value="layout3">Layout 3</option>
         // </select> */}
         <div
-        // style={{
-        //   width: '00px',
-        //   height: '300px',
-        //   backgroundColor: '#eee',
-        //   marginTop: '10px',
-        // }}
-        // <PieChartComponent data={defaultChartData} />
-        className="chart"
+          // style={{
+          //   width: '00px',
+          //   height: '300px',
+          //   backgroundColor: '#eee',
+          //   marginTop: '10px',
+          // }}
+          // <PieChartComponent data={defaultChartData} />
+          className="chart"
         >
           <PieChartComponent data={chartData} />
         </div>
