@@ -1,4 +1,5 @@
 import { Pool, QueryResult } from 'pg';
+import 'dotenv/config';
 
 interface User {
   // id: number;
@@ -9,8 +10,7 @@ interface User {
 }
 
 const pool = new Pool({
-  connectionString:
-    'postgres://pdixnjlm:5lhkeS2Z6TTSsRADeXd5WhFsOGARtR5g@drona.db.elephantsql.com/pdixnjlm',
+  connectionString: process.env.POSTGRES_CONNECTION_STRING,
 });
 
 async function createUserTable(): Promise<void> {
