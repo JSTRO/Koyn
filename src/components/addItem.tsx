@@ -19,11 +19,9 @@ const AddItem: React.FC<AddItemProps> = ({ onAddExpense, currentUser }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log({ name, amount, date, category });
 
     // add item to DB
     try {
-      console.log('axios properties -->', name, amount, date, category);
       await axios.post('http://localhost:3333/addExpense', {
         user_id: currentUser,
         expense_name: name,

@@ -1,6 +1,11 @@
 import { CSSProperties } from 'react';
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+  isLoggedIn: boolean;
+  currentUser: string;
+}
+
+const NavBar: React.FC<NavBarProps> = ({isLoggedIn, currentUser}) => {
   const navbarStyle: CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -30,7 +35,7 @@ const NavBar: React.FC = () => {
           Sign Up
         </a>
         <a href="/login" style={linkStyle}>
-          Login
+          {isLoggedIn ? `Welcome, ${currentUser}` : `Login`}
         </a>
       </div>
     </nav>

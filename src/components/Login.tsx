@@ -3,11 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import { CSSProperties } from 'react';
 import logo from '../assets/logo.png';
 
-interface Props {
+interface LoginProps {
   setCurrentUser: React.Dispatch<React.SetStateAction<string>>;
+  setIsLoggedIn: (value: boolean) => void;
 }
 
-const Login = ({setCurrentUser}: Props) => {
+const Login = ({setCurrentUser, setIsLoggedIn}: LoginProps) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -28,6 +29,7 @@ const Login = ({setCurrentUser}: Props) => {
       const data = await response.json();
       if (data.loggedIn) {
         setCurrentUser(data.user.id)
+        setIsLoggedIn(true)
         navigate('/dashboard')
       };
       if (!response.ok) {
@@ -108,6 +110,7 @@ const Login = ({setCurrentUser}: Props) => {
           Submit
         </button>
         <p>Don't have an account? Sign up <Link style={{color: 'gold'}} to="/signup" >here</Link>!</p>
+        <p>Don't want to sign in? Proceed as a <Link style={{color: 'gold'}} to="/dashboard" >guest</Link></p>
       </form>
     </div>
   );

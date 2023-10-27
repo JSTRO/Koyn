@@ -23,14 +23,14 @@ interface ExpenseFromDatabase {
 }
 
 interface Props {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (value: boolean) => void;
   currentUser: string;
 }
 
-function App({ currentUser }: Props) {
+function App({ currentUser, isLoggedIn, setIsLoggedIn }: Props) {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const addNewItem = async (expense: Expense) => {
-    // this is in app for prop drilling couldnt get it to work
-    // with additem in dashboard
 
     setExpenses((prevEx) => [...prevEx, expense]);
   };
@@ -57,7 +57,7 @@ function App({ currentUser }: Props) {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} currentUser={currentUser}/>
       <Logo />
       {/* prop down the function name it whatever */}
       <AddItem onAddExpense={addNewItem} currentUser={currentUser} />
