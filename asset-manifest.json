@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Koyn/static/css/main.b78e374f.css",
-    "main.js": "/Koyn/static/js/main.8ec2a51a.js",
+    "main.js": "/Koyn/static/js/main.94d6e0c4.js",
     "index.html": "/Koyn/index.html",
     "main.b78e374f.css.map": "/Koyn/static/css/main.b78e374f.css.map",
-    "main.8ec2a51a.js.map": "/Koyn/static/js/main.8ec2a51a.js.map"
+    "main.94d6e0c4.js.map": "/Koyn/static/js/main.94d6e0c4.js.map"
   },
   "entrypoints": [
     "static/css/main.b78e374f.css",
-    "static/js/main.8ec2a51a.js"
+    "static/js/main.94d6e0c4.js"
   ]
 }
