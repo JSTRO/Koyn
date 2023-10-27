@@ -40,7 +40,6 @@ const Login = ({setCurrentUser, setIsLoggedIn}: LoginProps) => {
     }
   };
 
-  // inline css. could not get css importing to work ://
   const containerStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
@@ -57,11 +56,6 @@ const Login = ({setCurrentUser, setIsLoggedIn}: LoginProps) => {
   };
 
   const formStyle: CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
     color: 'white',
   };
 
@@ -69,11 +63,18 @@ const Login = ({setCurrentUser, setIsLoggedIn}: LoginProps) => {
     display: 'block',
     width: '300px',
     marginBottom: '10px',
+    marginTop: '10px',
     padding: '5px',
     backgroundColor: '#3c3c3c',
     borderColor: 'transparent',
     color: 'white',
     borderRadius: '5px',
+  };
+
+  const buttonContainerStyle: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   };
 
   const buttonStyle: CSSProperties = {
@@ -90,7 +91,7 @@ const Login = ({setCurrentUser, setIsLoggedIn}: LoginProps) => {
       <img className="logo" src={logo} alt=''/>
       <h1 style={titleStyle}>Koyn</h1>
       <form onSubmit={handleSubmit} style={formStyle}>
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="username">Username</label>
         <input
           type="username"
           id="username"
@@ -98,7 +99,7 @@ const Login = ({setCurrentUser, setIsLoggedIn}: LoginProps) => {
           onChange={(e) => setUsername(e.target.value)}
           style={inputStyle}
         />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
@@ -106,11 +107,14 @@ const Login = ({setCurrentUser, setIsLoggedIn}: LoginProps) => {
           onChange={(e) => setPassword(e.target.value)}
           style={inputStyle}
         />
-        <button type="submit" style={buttonStyle}>
-          Submit
-        </button>
+        <div style={buttonContainerStyle}>
+          <button type="submit" style={buttonStyle}>
+            Submit
+          </button>
+        </div>
+       
         <p>Don't have an account? Sign up <Link style={{color: 'gold'}} to="/signup" >here</Link>!</p>
-        <p>Don't want to sign in? Proceed as a <Link style={{color: 'gold'}} to="/dashboard" >guest</Link></p>
+        <p>Don't want to sign in? Proceed as a <Link style={{color: 'gold'}} to="/dashboard" >guest</Link>.</p>
       </form>
     </div>
   );

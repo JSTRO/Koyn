@@ -9,7 +9,7 @@ const AppRoutes: React.FC = () => {
   const [currentUser, setCurrentUser] = useState('');
   
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/dashboard" element={<App currentUser={currentUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/login" element={<Login setCurrentUser={setCurrentUser} setIsLoggedIn={setIsLoggedIn}/>} />
