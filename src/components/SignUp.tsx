@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent, CSSProperties } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 interface FormData {
@@ -119,6 +119,7 @@ const SignUp = ({setCurrentUser}: Props) => {
           </button>
         </div>
       </form>
+      <p style={{color: 'white'}}>Already have an account? Log in <Link style={{color: 'gold'}} to="/login" >here</Link>!</p>
     </div>
   );
 };
